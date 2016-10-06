@@ -1,0 +1,32 @@
+/**
+ * Created by Jon Suthakaran on 05/10/2016.
+  * Employee class
+  * Contains profit score and hard work score fields
+  */
+public class Employee {
+
+
+    int profitScore;
+    int hardWorkScore;
+
+    public int getProfitScore() {
+        return profitScore;
+    }
+
+    public void setProfitScore(int profitScore) {
+        this.profitScore = profitScore;
+    }
+
+    public int getHardWorkScore() {
+        return hardWorkScore;
+    }
+
+    public void setHardWorkScore(int hardWorkScore) {
+        this.hardWorkScore = hardWorkScore;
+    }
+
+    public Employee(int profitScore, int hardWorkScore) {
+        this.profitScore = profitScore;
+        this.hardWorkScore = hardWorkScore;
+    }
+}
