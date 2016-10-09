@@ -5,19 +5,11 @@ import java.util.*;
  */
 public class Arrays {
     public static void main(String[] args) {
-        ArrayList<String> animalNames = new ArrayList<>();  // String array list for names of the animal
+        ArrayList<String> animalNames = populateArray();
         ArrayList<Integer> animalNumbers = new ArrayList<>();  // Integer array list for the numbers of the animal
         // There is a one to one correspondence between the two array lists
-        // Array list is used since itr maintains insertion order
 
         int animalNumber;
-
-        // Populate the array list
-        animalNames.add(0, "Komodo Dragon");
-        animalNames.add(1, "Manatee");
-        animalNames.add(2, "Kakapo");
-        animalNames.add(3, "Florida Panther");
-        animalNames.add(4, "White Rhino");
 
         for (String animal : animalNames) {  // For each animal in the array list
             animalNumber = getAnimalNumber(animal);  // Get the number this animal
@@ -34,7 +26,7 @@ public class Arrays {
      * @param animal
      * @return animalnumber
      */
-    public static int getAnimalNumber(String animal) {  //
+    private static int getAnimalNumber(String animal) {  //
         Scanner sc = new Scanner(System.in);
         System.out.println(animal);
         System.out.println("How many are left in the wild? ");
@@ -46,7 +38,7 @@ public class Arrays {
      * @param animalNames
      * @param animalNumbers
      */
-    public static void showMostEndangered(ArrayList<String> animalNames, ArrayList<Integer> animalNumbers) {
+    private static void showMostEndangered(ArrayList<String> animalNames, ArrayList<Integer> animalNumbers) {
         int min = animalNumbers.get(0);  // Let min be the first value of the array list
 
         for (int animalNumber : animalNumbers) {
@@ -57,6 +49,22 @@ public class Arrays {
         }
         System.out.println("The most endangered animal is the " + animalNames.get(animalNumbers.indexOf(min)) +
                             ". There are only "  + min +  " in the wild.");
+    }
+
+    /**
+     * String array list for names of the animal
+     * Populates the array list
+     * @return animalNames
+     */
+    private static ArrayList<String> populateArray() {
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add(0, "Komodo Dragon");
+        animalNames.add(1, "Manatee");
+        animalNames.add(2, "Kakapo");
+        animalNames.add(3, "Florida Panther");
+        animalNames.add(4, "White Rhino");
+
+        return animalNames;
     }
 
 }

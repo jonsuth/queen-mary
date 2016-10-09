@@ -8,69 +8,91 @@ public class BonusScheme {
     public static void main(String[] args) {
         int profitScore = readProfitScore();
         int hardWorkScore = readHardWorkScore();
+
         Employee employee = new Employee(profitScore, hardWorkScore);
         // Creates new employee object using the profit and hard work scores.
+
         int performanceScore = calculatePerformanceScore(employee);
         int bonus = calculateBonus(performanceScore);
 
         System.out.println("Your performance score this year is " + performanceScore + " out of 10.");
-        System.out.println("Your bouns is " + bonus + " pounds.");
+        System.out.println("Your bonus is " + bonus + " pounds.");
     }
 
-    public static int readProfitScore() {  // Get profit score from user
+    /**
+     * Get profit score from user
+     * @return profitScore
+     */
+    private static int readProfitScore() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Profit score? ");
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static int readHardWorkScore() {  // Get hard work score from user
+    /**
+     * Get hard work score from user
+     * @return hardWorkScore
+     */
+    private static int readHardWorkScore() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Hard work score? ");
         return Integer.parseInt(sc.nextLine());
     }
 
-    public static int calculatePerformanceScore(Employee employee) {
-        int newProfitScore = calculateNewProfitScore(employee.getProfitScore());
-        int newHardWorkScore = calculateNewHardWorkScore(employee.getHardWorkScore());
+    /**
+     * Calculate performance score by adjusting the profit score and the hard work score and adding the two.
+     * @param employee
+     * @return
+     */
+    private static int calculatePerformanceScore(Employee employee) {
+        int newProfitScore = adjustProfitScore(employee.getProfitScore());
+        int newHardWorkScore = adjustHardWorkScore(employee.getHardWorkScore());
         return (newProfitScore + newHardWorkScore)/7;
     }
 
-    public static int calculateNewProfitScore(int profitScore) {   // Calculates the new profit score based on the formula.
+    /**
+     * Calculates the new profit score based on the formula.
+     * @param profitScore
+     * @return
+     */
+    private static int adjustProfitScore(int profitScore) {
         return profitScore*2;
     }
 
-    public static int calculateNewHardWorkScore(int hardWorkScore) {  // Calculates the new hard work score based on the formula.
+    /**
+     * Calculates the new hard work score based on the formula.
+     * @param hardWorkScore
+     * @return
+     */
+    private static int adjustHardWorkScore(int hardWorkScore) {
         return hardWorkScore*5;
     }
 
-    public static int calculateBonus(int performanceScore) {  // Calculates the bonus based on the formula.
+    /**
+     * Calculates the bonus based on the formula.
+     * @param performanceScore
+     * @return bonusScore
+     */
+    private static int calculateBonus(int performanceScore) {
         return performanceScore * 5000;
     }
 }
 
 /**
  * Employee class
- * Contains profit score and hard work score fields
+ * Create a new employee given profit score and hard work score.
  */
 class Employee {
 
-    int profitScore;
-    int hardWorkScore;
+    private int profitScore;
+    private int hardWorkScore;
 
-    public int getProfitScore() {
+    int getProfitScore() {
         return profitScore;
     }
 
-    public void setProfitScore(int profitScore) {
-        this.profitScore = profitScore;
-    }
-
-    public int getHardWorkScore() {
+    int getHardWorkScore() {
         return hardWorkScore;
-    }
-
-    public void setHardWorkScore(int hardWorkScore) {
-        this.hardWorkScore = hardWorkScore;
     }
 
     public Employee(int profitScore, int hardWorkScore) {
