@@ -22,15 +22,28 @@ public class Arrays {
     }
 
     /**
-     * Gets the animal number from user
+     * Gets the animal number from user, error checks for int input
      * @param animal
-     * @return animalnumber
+     * @return animalNumber
      */
     private static int getAnimalNumber(String animal) {  //
         Scanner sc = new Scanner(System.in);
-        System.out.println(animal);
-        System.out.println("How many are left in the wild? ");
-        return Integer.parseInt(sc.nextLine());
+        int animalNumber;
+        while (true) {
+            System.out.println(animal);
+            System.out.println("How many are left in the wild? ");
+            try {
+                animalNumber = Integer.parseInt(sc.nextLine());
+                if (animalNumber > 0) {
+                    return animalNumber;
+                } else {
+                    System.out.println("Error please enter a valid number > 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error please enter a number");
+            }
+            System.out.println();
+        }
     }
 
     /**

@@ -12,11 +12,11 @@ public class BonusScheme {
         Employee employee = new Employee(profitScore, hardWorkScore);
         // Creates new employee object using the profit and hard work scores.
 
-        int performanceScore = calculatePerformanceScore(employee);
-        int bonus = calculateBonus(performanceScore);
+        employee.setPerformanceScore(calculatePerformanceScore(employee));
+        employee.setBonus(calculateBonus(employee.getPerformanceScore()));
 
-        System.out.println("Your performance score this year is " + performanceScore + " out of 10.");
-        System.out.println("Your bonus is " + bonus + " pounds.");
+        System.out.println("Your performance score this year is " + employee.getPerformanceScore() + " out of 10.");
+        System.out.println("Your bonus is " + employee.getBonus() + " pounds.");
     }
 
     /**
@@ -53,7 +53,7 @@ public class BonusScheme {
     /**
      * Calculates the new profit score based on the formula.
      * @param profitScore
-     * @return
+     * @return adjustedProfitScore
      */
     private static int adjustProfitScore(int profitScore) {
         return profitScore*2;
@@ -62,7 +62,7 @@ public class BonusScheme {
     /**
      * Calculates the new hard work score based on the formula.
      * @param hardWorkScore
-     * @return
+     * @return adjustedHardWorkScore
      */
     private static int adjustHardWorkScore(int hardWorkScore) {
         return hardWorkScore*5;
@@ -86,6 +86,8 @@ class Employee {
 
     private int profitScore;
     private int hardWorkScore;
+    private int performanceScore;
+    private int bonus;
 
     int getProfitScore() {
         return profitScore;
@@ -95,8 +97,25 @@ class Employee {
         return hardWorkScore;
     }
 
+    int getPerformanceScore() {
+        return performanceScore;
+    }
+
+    int getBonus() {
+        return bonus;
+    }
+
+    void setPerformanceScore(int performanceScore) {
+        this.performanceScore = performanceScore;
+    }
+
+    void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
     public Employee(int profitScore, int hardWorkScore) {
         this.profitScore = profitScore;
         this.hardWorkScore = hardWorkScore;
     }
+
 }

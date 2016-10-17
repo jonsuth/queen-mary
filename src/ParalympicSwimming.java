@@ -24,10 +24,23 @@ public class ParalympicSwimming {
      * @param i
      * @return runnerScore
      */
-    public static int getRunnerScore(int i) {
+    private static int getRunnerScore(int i) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("What is the disability class of runner " + i + "? ");
-        return Integer.parseInt(sc.nextLine());
+        int score;
+        while (true) {  // Loop indefinitely
+            System.out.println("What is the disability class of runner " + i + "?  (0-10)");
+            try {
+                score = Integer.parseInt(sc.nextLine());  // Try parse string to int
+                if (validateScore(score)) {
+                    return score;
+                } else {
+                    System.out.println("Error, please enter a valid score between 0-10");
+                }
+            } catch (NumberFormatException e) {  // If string is un-parsable
+                System.out.println("Error, please enter a valid score between 0-10");
+            }
+        }
+
     }
 
     /**
@@ -35,5 +48,12 @@ public class ParalympicSwimming {
      * @param total
      * @return legality
      */
-    public static boolean checkLegality(int total) { return total < 32; }  // Check legality
+    private static boolean checkLegality(int total) { return total < 32; }
+
+    /**
+     *
+     * @param score
+     * @return true/false
+     */
+    private static boolean validateScore(int score) { return score >= 0 && score <= 10; }
 }
