@@ -24,20 +24,9 @@ public class BoxOffice {
      * @return films
      */
     private static ArrayList<Film> populateFilms(ArrayList<Film> films, int screen) {
-        String title;
-        Film film;
-        Time time;
-            while (true) {  // Loop until all films have been created
-
-                title = readTitle(screen);
-                time = new Time(readHour(), readMinute()); // Create time input with readings from user
-                film = createFilm(title, time, screen);  // Try create film Returns null if film cant be created
-
-                if (film != null) { // Break loop if film was created else continue
-                    break;
-                }
-            }
-
+        String title = readTitle(screen);
+        Time time  = createTime();  // Create time object with readings from user
+        Film film = new Film(title, time, screen);  // Create film
         films.add(film);
         System.out.println();
         return films;  // Return the array list of films
@@ -52,6 +41,28 @@ public class BoxOffice {
         Scanner sc = new Scanner(System.in);
         System.out.println("Film for screen " + screen + "?");
         return sc.nextLine();
+    }
+
+    /**
+     * Creates a time object with reading from user.
+     * Error checks for correct format/input
+     * @return Time
+     */
+    private static Time createTime() {
+        int hour;
+        int minute;
+        while (true) {
+            hour = readHour();
+            minute = readMinute();
+            if (checkTime(hour, minute)) {
+                Time time = new Time(hour, minute);
+                time = adjustTime(time);  // Adjust time for any rollovers
+                return time;
+            } else {
+                System.out.println("Error with time, please try again");
+            }
+        }
+
     }
 
     /**
@@ -72,39 +83,6 @@ public class BoxOffice {
         Scanner sc = new Scanner(System.in);
         System.out.println("What time does it start? Minutes after hour (0-60)");
         return sc.nextInt();
-    }
-
-    /**
-     * Displays all films in the films array, pads title to fit 25 chars.
-     * @param films
-     */
-    private static void showFilms(ArrayList<Film> films) {
-        System.out.println("CinemaWorld Films Tonight");
-        for (Film film: films) {
-            System.out.println("Screen " + film.getScreen()
-                    + ": " + String.format("%1$-25s",film.getTitle())
-                    + " " + String.format("%02d", film.getTime().getHour())
-                    + ":" + String.format("%02d", film.getTime().getMinute()));
-        }
-    }
-
-    /**
-     * Checks the fields of the film and creates a Film object.
-     * Returns null if film object cant be created (bad fields).
-     * @param title
-     * @param time
-     * @param screen
-     * @return film/null
-     */
-    private static Film createFilm(String title, Time time, int screen) {
-
-        if (checkTime(time.getHour(), time.getMinute())) {  // If the minute and hours conform to the standards
-            time = adjustTime(time);  // Adjust time for any rollovers
-            return new Film(title, time, screen);
-        } else {
-            System.out.println("Error with time, please try again");
-            return null;
-        }
     }
 
     /**
@@ -140,6 +118,20 @@ public class BoxOffice {
         }
 
         return time;
+    }
+
+    /**
+     * Displays all films in the films array, pads title to fit 25 chars.
+     * @param films
+     */
+    private static void showFilms(ArrayList<Film> films) {
+        System.out.println("CinemaWorld Films Tonight");
+        for (Film film: films) {
+            System.out.println("Screen " + film.getScreen()
+                    + ": " + String.format("%1$-25s",film.getTitle())
+                    + " " + String.format("%02d", film.getTime().getHour())
+                    + ":" + String.format("%02d", film.getTime().getMinute()));
+        }
     }
 
 }
